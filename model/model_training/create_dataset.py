@@ -381,11 +381,11 @@ def main():
     # TODO create HF dataset
     from datasets import Dataset
 
-    def create_dataset()
+    def create_dataset(dataset):
         prompts = []
         completions = []
         
-        for line in train.datasets[0].data:
+        for line in dataset.data:
             # NOTE this assumes that each line consists of a single prompt, completion pair
             utterances = line.conversation
             print("Number of utterances:", len(utterances))
@@ -401,9 +401,9 @@ def main():
 
         return ds
     
-    def create_formatted_dataset():
+    def create_formatted_dataset(dataset):
         conversations = []
-        for line in train.datasets[0].data:
+        for line in dataset.data:
             # get formatted version
             formatted_conversation = line.get_formatted(eos_token=tokenizer.eos_token)
             conversations.append(formatted_conversation)
@@ -413,7 +413,7 @@ def main():
         ds = Dataset.from_dict(dataset_dict)
         ds.push_to_hub("nielsr/oass-dataset-formatted")
     
-    create_formatted_dataset()
+    create_formatted_dataset(dataset=train.datasets[0])
 
 
 if __name__ == "__main__":
