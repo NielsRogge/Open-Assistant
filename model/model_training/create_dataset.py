@@ -369,6 +369,7 @@ def main():
 
     print("Number of training datasets:", len(train.datasets))
     print("Length of first dataset:", len(train.datasets[0]))
+    print("First item of the dataset:", train.datasets[0][0])
 
 
 if __name__ == "__main__":
