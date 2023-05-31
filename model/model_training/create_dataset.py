@@ -387,6 +387,7 @@ def main():
     for line in train.datasets[0].data:
         # NOTE this assumes that each line consists of a single prompt, completion pair
         utterances = line.conversation
+        print("Number of utterances:", len(utterances))
         prompts.append(utterances[0].text)
         completions.append(utterances[1].text)
     
@@ -395,7 +396,7 @@ def main():
     dataset_dict["completions"] = completions
     
     ds = Dataset.from_dict(dataset_dict)
-    ds.push_to_hub("nielsr/oass-dataset")
+    # ds.push_to_hub("nielsr/oass-dataset")
 
 
 if __name__ == "__main__":
