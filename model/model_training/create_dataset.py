@@ -386,7 +386,7 @@ def main():
     
     for line in train.datasets[0].data:
         # NOTE this assumes that each line consists of a single prompt, completion pair
-        utterances = line.conversation.utterances
+        utterances = line.conversation
         prompts.append(utterances[0].text)
         completions.append(utterances[1].text)
     
