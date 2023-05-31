@@ -378,6 +378,17 @@ def main():
         for line in train.datasets[0].data:
             f.write(f"{line}\n")
 
+    # TODO create HF dataset
+    from datasets import Dataset
+
+    def gen(dataset):
+        for line in dataset.data:
+            utterances = line.conversation.utterances
+            yield {"prompt": utterances[0].text, "completion": utterances[1].text}
+    
+    ds = Dataset.from_generator(gen(dataset=train.datasets[0]))
+    ds.push_to_hub("nielsr/oass-dataset")
+
 
 if __name__ == "__main__":
     main()
