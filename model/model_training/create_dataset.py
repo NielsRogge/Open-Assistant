@@ -373,6 +373,11 @@ def main():
     print("Type of first dataset:", type(train.datasets[0]))
     print("First item of the dataset:", train.datasets[0][0])
 
+    print("Saving dataset as txt file...")
+    with open('dataset.txt', 'w') as f:
+        for line in train.datasets[0].data:
+            f.write(f"{line}\n")
+
 
 if __name__ == "__main__":
     main()
