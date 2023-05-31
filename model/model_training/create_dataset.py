@@ -381,22 +381,39 @@ def main():
     # TODO create HF dataset
     from datasets import Dataset
 
-    prompts = []
-    completions = []
+    def create_dataset()
+        prompts = []
+        completions = []
+        
+        for line in train.datasets[0].data:
+            # NOTE this assumes that each line consists of a single prompt, completion pair
+            utterances = line.conversation
+            print("Number of utterances:", len(utterances))
+            prompts.append(utterances[0].text)
+            completions.append(utterances[1].text)
+        
+        dataset_dict = {}
+        dataset_dict["prompt"] = prompts
+        dataset_dict["completion"] = completions
+        
+        ds = Dataset.from_dict(dataset_dict)
+        # ds.push_to_hub("nielsr/oass-dataset")
+
+        return ds
     
-    for line in train.datasets[0].data:
-        # NOTE this assumes that each line consists of a single prompt, completion pair
-        utterances = line.conversation
-        print("Number of utterances:", len(utterances))
-        prompts.append(utterances[0].text)
-        completions.append(utterances[1].text)
+    def create_formatted_dataset():
+        conversations = []
+        for line in train.datasets[0].data:
+            # get formatted version
+            formatted_conversation = line.get_formatted(eos_token=tokenizer.eos_token)
+            conversations.append(formatted_conversation)
+
+        dataset_dict = {}
+        dataset_dict["conversation"] = conversations
+        ds = Dataset.from_dict(dataset_dict)
+        ds.push_to_hub("nielsr/oass-dataset-formatted")
     
-    dataset_dict = {}
-    dataset_dict["prompt"] = prompts
-    dataset_dict["completions"] = completions
-    
-    ds = Dataset.from_dict(dataset_dict)
-    # ds.push_to_hub("nielsr/oass-dataset")
+    create_formatted_dataset()
 
 
 if __name__ == "__main__":
