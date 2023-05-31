@@ -367,8 +367,10 @@ def main():
         print(f"\nTotal eval: {total_eval}")
         print("-" * 80)
 
+    print("Type of train:", type(train))
     print("Number of training datasets:", len(train.datasets))
     print("Length of first dataset:", len(train.datasets[0]))
+    print("Type of first dataset:", type(train.datasets[0]))
     print("First item of the dataset:", train.datasets[0][0])
 
 
