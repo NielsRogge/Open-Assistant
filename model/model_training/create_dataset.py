@@ -381,12 +381,20 @@ def main():
     # TODO create HF dataset
     from datasets import Dataset
 
-    def gen(dataset):
-        for line in dataset.data:
-            utterances = line.conversation.utterances
-            yield {"prompt": utterances[0].text, "completion": utterances[1].text}
+    prompts = []
+    completions = []
     
-    ds = Dataset.from_generator(gen(dataset=train.datasets[0]))
+    for line in train.datasets[0].data:
+        # NOTE this assumes that each line consists of a single prompt, completion pair
+        utterances = line.conversation.utterances
+        prompts.append(utterances[0].text)
+        completions.append(utterances[1].text)
+    
+    dataset_dict = {}
+    dataset_dict["prompt"] = prompts
+    dataset_dict["completions"] = completions
+    
+    ds = Dataset.from_dict(dataset_dict)
     ds.push_to_hub("nielsr/oass-dataset")
 
 
