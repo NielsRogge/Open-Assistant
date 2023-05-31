@@ -367,6 +367,9 @@ def main():
         print(f"\nTotal eval: {total_eval}")
         print("-" * 80)
 
+    print("Number of training datasets:", len(train.datasets))
+    print("Length of first dataset:", len(train.datasets[0]))
+
 
 if __name__ == "__main__":
     main()
